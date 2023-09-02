@@ -10,6 +10,19 @@ ReSeparateMethodBodyAndHeaderRule class >> checksMethod [
 	^ true
 ]
 
+{ #category : #helpers }
+ReSeparateMethodBodyAndHeaderRule >> anchorFor: aNode [
+
+	| endOfFirstLine |
+	endOfFirstLine := aNode methodNode body hasTemporaries
+		ifTrue: [ aNode methodNode body rightBar + 1 ]
+		ifFalse:[ aNode methodNode body statements first stop + 1 ].
+
+	^ ReIntervalSourceAnchor
+			entity: aNode methodNode body
+			interval: (Interval from: aNode methodNode body start to: endOfFirstLine)
+]
+
 { #category : #running }
 ReSeparateMethodBodyAndHeaderRule >> basicCheck: anEntity [
 

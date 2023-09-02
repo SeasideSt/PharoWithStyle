@@ -4,12 +4,6 @@ Class {
 	#category : #PharoWithStyle
 }
 
-{ #category : #'testing - interest' }
-ReUnnecessaryLastPeriodRule class >> checksNode [
-
-	^ true
-]
-
 { #category : #helpers }
 ReUnnecessaryLastPeriodRule >> anchorFor: aNode [
 
@@ -22,21 +16,25 @@ ReUnnecessaryLastPeriodRule >> anchorFor: aNode [
 ReUnnecessaryLastPeriodRule >> basicCheck: node [
 
 	^ node isSequence and: [
-		  (node statements notEmpty and: [ node periods notEmpty ]) and: [
-			  node periods last > node statements last stop ] ]
+		  node statements notEmpty and: [
+			  node periods notEmpty and: [
+				  node periods last > node statements last stop ] ] ]
 ]
 
 { #category : #accessing }
 ReUnnecessaryLastPeriodRule >> group [
+
 	^ 'Formatting'
 ]
 
 { #category : #accessing }
 ReUnnecessaryLastPeriodRule >> name [
+
 	^ 'Unnecessary Last Period'
 ]
 
 { #category : #accessing }
 ReUnnecessaryLastPeriodRule >> rationale [
+
 	^ 'Periods are not needed after the last statement.'
 ]
