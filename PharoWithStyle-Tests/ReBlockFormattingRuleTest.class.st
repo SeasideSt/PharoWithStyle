@@ -8,7 +8,9 @@ Class {
 ReBlockFormattingRuleTest >> blocksWithCorrectSpaces [
 
 	#() do: [ :n | n ].
-	#() do: [ :n | #() do: [ :n2 | n2 ] ]
+	#() do: [ :n | #() do: [ :n2 | n2 ] ].
+	#() do: [ :n |
+		n foo ]
 ]
 
 { #category : #violations }
@@ -16,14 +18,25 @@ ReBlockFormattingRuleTest >> blocksWithInconsistentSpaces [
 
 	#() do: [ :n|n].
 	#() do: [:n|n ].
-	#() do: [:n| n]
+	#() do: [:n| n].
+	#() do: [ :n |
+		n foo]
 ]
 
 { #category : #violations }
 ReBlockFormattingRuleTest >> blocksWithNoSpaces [
 
 	#() do: [:n|n].
-	#() do: [ :n | #() do: [:n2|] ]
+	#() do: [ :n | #() do: [:n2|] ].
+	#() do: [:n|
+		n foo]
+]
+
+{ #category : #violations }
+ReBlockFormattingRuleTest >> multilineBlocksWithInconsistentSpaces2 [
+
+	#() do: [
+		1 foo ]
 ]
 
 { #category : #helpers }
@@ -46,8 +59,8 @@ ReBlockFormattingRuleTest >> testRule [
 	self assert: critiques size equals: 0.
 	
 	critiques := self myCritiquesOnNodesInMethod: self class >> #blocksWithNoSpaces.
-	self assert: critiques size equals: 2.
+	self assert: critiques size equals: 3.
 	
 	critiques := self myCritiquesOnNodesInMethod: self class >> #blocksWithInconsistentSpaces.
-	self assert: critiques size equals: 3
+	self assert: critiques size equals: 4
 ]

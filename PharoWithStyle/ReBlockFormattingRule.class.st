@@ -1,71 +1,58 @@
 Class {
 	#name : #ReBlockFormattingRule,
-	#superclass : #ReNodeMatchRule,
+	#superclass : #ReAbstractRule,
 	#category : #PharoWithStyle
 }
 
 { #category : #'testing - interest' }
-ReBlockFormattingRule class >> checksMethod [
+ReBlockFormattingRule class >> checksNode [
 
 	^ true
 ]
 
-{ #category : #hooks }
-ReBlockFormattingRule >> afterCheck: aNode mappings: mappingDict [
+{ #category : #helpers }
+ReBlockFormattingRule >> anchorFor: aNode [
+
+	^ ReIntervalSourceAnchor
+			entity: aNode
+			interval: (Interval from: aNode start to: aNode stop)
+]
+
+{ #category : #running }
+ReBlockFormattingRule >> basicCheck: anEntity [
 
 	| source before after |
-	source := aNode source.
-	(source notNil and: [ aNode left notNil and: [ aNode right notNil ] ]) ifFalse:[ ^ false ].
+	anEntity isBlock ifFalse: [ ^ false ].
 	
-	before := source at: aNode left + 1 ifAbsent: [ $  ].
-	after := source at: aNode right - 1 ifAbsent: [ $  ].
+	source := anEntity source.
+	(source notNil and: [ anEntity left notNil and: [ anEntity right notNil ] ]) ifFalse:[ ^ false ].
+	
+	before := source at: anEntity left + 1 ifAbsent: [ $  ].
+	after := source at: anEntity right - 1 ifAbsent: [ $  ].
 	(before isSeparator and: [ after isSeparator ])
 		ifFalse: [ ^ true ]
 		ifTrue: [
-			aNode bar ifNotNil: [
-				before := source at: aNode bar - 1 ifAbsent: [ $  ].
-				after := source at: aNode bar + 1 ifAbsent: [ $  ].
+			anEntity bar ifNotNil: [
+				before := source at: anEntity bar - 1 ifAbsent: [ $  ].
+				after := source at: anEntity bar + 1 ifAbsent: [ $  ].
 				(before isSeparator and: [ after isSeparator ]) ifFalse: [ ^ true ] ] ].
 	^ false
 ]
 
 { #category : #accessing }
 ReBlockFormattingRule >> group [
+
 	^ 'Formatting'
-]
-
-{ #category : #initialization }
-ReBlockFormattingRule >> initialize [
-
-	super initialize.
-	self
-		matches: '[ :`@args | | `@temps | ``@.stmts ]'
-		"do: [ :node :answer |
-			answer isNil
-				ifFalse: [ answer ]
-				ifTrue: [
-					| source |
-					source := node source.
-					(source notNil and: [ node left notNil and: [ node right notNil ] ]) ifTrue: [
-						| before after |
-						before := source at: node left + 1 ifAbsent: [ $ ].
-						after := source at: node right - 1 ifAbsent: [ $ ].
-						(before isSeparator and: [ after isSeparator ])
-							ifFalse: [ node ]
-							ifTrue: [
-								node bar notNil ifTrue: [
-									before := source at: node bar - 1 ifAbsent: [ $ ].
-									after := source at: node bar + 1 ifAbsent: [ $ ].
-									(before isSeparator and: [ after isSeparator ])
-										ifFalse: [ node ] ] ] ] ] ]"
 ]
 
 { #category : #accessing }
 ReBlockFormattingRule >> name [
+
 	^ 'Block formatting'
 ]
 
 { #category : #accessing }
 ReBlockFormattingRule >> rationale [
+
 	^ 'There should spaces at the beginning and end of block.'
 ]
