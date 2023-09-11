@@ -42,6 +42,13 @@ ReSeparateMethodBodyAndHeaderRuleTest >> noSeparation5 [
 	^ #foobar
 ]
 
+{ #category : #violations }
+ReSeparateMethodBodyAndHeaderRuleTest >> noSeparation6 [
+
+	"I have a comment"
+	^ #foobar
+]
+
 { #category : #examples }
 ReSeparateMethodBodyAndHeaderRuleTest >> separationWithOtherWhitespace [
 	"I have a comment"

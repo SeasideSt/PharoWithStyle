@@ -35,6 +35,13 @@ ReSeparateMethodBodyAndHeaderRule >> basicCheck: anEntity [
 			lastArgument stop ].
 	startOfBody := anEntity methodNode body start.
 	startOfBody < endOfHeader ifTrue:[ ^ false ].
+	
+	anEntity methodNode comments notEmpty ifTrue:[ 
+		| headerComments |
+		headerComments :=  anEntity methodNode comments first.
+		headerComments stop < startOfBody
+			ifTrue:[ endOfHeader := endOfHeader max: anEntity methodNode comments first stop ] ].
+	
 	"Check if there are two consecutive <cr> characters only separated by whitespace in the lines between the end of the header and the start of the body"
 	sourceCodeBetweenEndOfHeaderAndStartOfBody := anEntity methodNode sourceCode copyFrom: endOfHeader to: startOfBody - 1.
 	^ (sourceCodeBetweenEndOfHeaderAndStartOfBody matchesRegex: '.*\r+\s*\r+.*') not
