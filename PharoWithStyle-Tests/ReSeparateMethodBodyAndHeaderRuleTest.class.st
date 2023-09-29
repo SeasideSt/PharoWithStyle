@@ -49,6 +49,14 @@ ReSeparateMethodBodyAndHeaderRuleTest >> noSeparation6 [
 	^ #foobar
 ]
 
+{ #category : #violations }
+ReSeparateMethodBodyAndHeaderRuleTest >> noSeparation7 [
+
+	"I have a comment"
+	
+	^ #foobar
+]
+
 { #category : #examples }
 ReSeparateMethodBodyAndHeaderRuleTest >> separationWithOtherWhitespace [
 	"I have a comment"
@@ -76,6 +84,15 @@ ReSeparateMethodBodyAndHeaderRuleTest >> testRule [
 ReSeparateMethodBodyAndHeaderRuleTest >> withSeparation [
 	"I have a comment"
 
+	| some |
+	some := 1.
+	^ some
+]
+
+{ #category : #violations }
+ReSeparateMethodBodyAndHeaderRuleTest >> withWrongSeparation [
+
+	"I have a comment"
 	| some |
 	some := 1.
 	^ some

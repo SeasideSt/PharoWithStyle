@@ -26,7 +26,7 @@ ReSeparateMethodBodyAndHeaderRule >> anchorFor: aNode [
 { #category : #running }
 ReSeparateMethodBodyAndHeaderRule >> basicCheck: anEntity [
 
-	| endOfHeader startOfBody sourceCodeBetweenEndOfHeaderAndStartOfBody |
+	| endOfHeader startOfBody |
 	endOfHeader:= anEntity methodNode arguments
 		ifEmpty: [ anEntity methodNode selector keywords first size + 1 ]
 		ifNotEmpty: [
@@ -35,16 +35,27 @@ ReSeparateMethodBodyAndHeaderRule >> basicCheck: anEntity [
 			lastArgument stop ].
 	startOfBody := anEntity methodNode body start.
 	startOfBody < endOfHeader ifTrue:[ ^ false ].
-	
+
 	anEntity methodNode comments notEmpty ifTrue:[ 
 		| headerComments |
 		headerComments :=  anEntity methodNode comments first.
 		headerComments stop < startOfBody
-			ifTrue:[ endOfHeader := endOfHeader max: anEntity methodNode comments first stop ] ].
+			ifTrue:[
+				"Check if there is no empty line between the selector and the comment."
+				(self emptyLineIn: anEntity methodNode sourceCode between: endOfHeader and: headerComments start - 1) 
+					ifTrue: [ ^ true ].
+				endOfHeader := endOfHeader max: headerComments stop ] ].
+	"Check if there is an empty line between the end of the header (possibly including comment) and the start of the method body."
+	^ (self emptyLineIn: anEntity methodNode sourceCode between: endOfHeader and: startOfBody - 1) not
+]
+
+{ #category : #private }
+ReSeparateMethodBodyAndHeaderRule >> emptyLineIn: aString between: start and: end [
+	"Check if there are two consecutive <cr> characters only separated by whitespace between start and end"
 	
-	"Check if there are two consecutive <cr> characters only separated by whitespace in the lines between the end of the header and the start of the body"
-	sourceCodeBetweenEndOfHeaderAndStartOfBody := anEntity methodNode sourceCode copyFrom: endOfHeader to: startOfBody - 1.
-	^ (sourceCodeBetweenEndOfHeaderAndStartOfBody matchesRegex: '.*\r+\s*\r+.*') not
+	| part |
+	part := aString copyFrom: start to: end - 1.
+	^ part matchesRegex: '.*\r+\s*\r+.*'
 ]
 
 { #category : #accessing }
@@ -62,5 +73,5 @@ ReSeparateMethodBodyAndHeaderRule >> name [
 { #category : #accessing }
 ReSeparateMethodBodyAndHeaderRule >> rationale [
 
-	^ 'Make sure that the reader can identify the beginning of the method body by placing an empty line between the method signature and the method body'
+	^ 'Make sure that the reader can identify the beginning of the method body by separating the method signature and comments from the method body by an empty line.'
 ]
