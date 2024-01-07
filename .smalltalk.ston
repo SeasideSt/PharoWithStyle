@@ -3,7 +3,7 @@ SmalltalkCISpec {
     SCIMetacelloLoadSpec {
       #baseline : 'PharoWithStyle',
       #directory : '.',
-      #load : [ 'Tests' ],
+      #load : [ 'tests' ],
       #platforms : [ #pharo ]
     }
   ],
