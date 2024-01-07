@@ -9,7 +9,7 @@ ReTempsFormattingRule >> anchorFor: aNode [
 
 	^ ReIntervalSourceAnchor
 			entity: aNode
-			interval: (Interval from: aNode start to: aNode stop)
+			interval: (Interval from: aNode leftBar to: aNode rightBar)
 ]
 
 { #category : #running }

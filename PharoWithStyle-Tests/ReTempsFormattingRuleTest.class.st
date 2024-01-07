@@ -7,31 +7,44 @@ Class {
 { #category : #violations }
 ReTempsFormattingRuleTest >> invalid1 [
 
-			| a|
+	| a|
+	a := 1.
+	^ a
 ]
 
 { #category : #violations }
 ReTempsFormattingRuleTest >> invalid2 [
 
-			|b |
+	|b |
+	b := 2.
+	^ b
 ]
 
 { #category : #violations }
 ReTempsFormattingRuleTest >> invalid3 [
 
-			| a  b |
+	| a  b |
+	a := 1.
+	b := 2.
+	^ a + b
 ]
 
 { #category : #violations }
 ReTempsFormattingRuleTest >> invalid4 [
 
-			|  a b |
+	|  a b |
+	a := 1.
+	b := 2.
+	^ a + b
 ]
 
 { #category : #violations }
 ReTempsFormattingRuleTest >> invalid5 [
-
-			| a b  |
+	
+	| a b  |
+	a := 1.
+	b := 2.
+	^ a + b
 ]
 
 { #category : #tests }
@@ -62,4 +75,7 @@ ReTempsFormattingRuleTest >> testRule [
 ReTempsFormattingRuleTest >> valid [
 
 	| a b |
+	a := 1.
+	b := 2.
+	^ a + b
 ]

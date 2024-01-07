@@ -1,6 +1,6 @@
 Class {
 	#name : #ReReturnFormattingRule,
-	#superclass : #ReAbstractRule,
+	#superclass : #ReNodeBasedRule,
 	#category : #PharoWithStyle
 }
 
@@ -12,7 +12,7 @@ ReReturnFormattingRule >> anchorFor: aNode [
 			interval: (Interval from: aNode start to: aNode stop)
 ]
 
-{ #category : #initialization }
+{ #category : #running }
 ReReturnFormattingRule >> basicCheck: aNode [
 
 	^ aNode isReturn and: [ aNode start + 2 ~= aNode value start ]
