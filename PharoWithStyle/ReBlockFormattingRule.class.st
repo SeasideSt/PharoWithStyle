@@ -1,14 +1,8 @@
 Class {
 	#name : #ReBlockFormattingRule,
-	#superclass : #ReAbstractRule,
+	#superclass : #ReNodeBasedRule,
 	#category : #PharoWithStyle
 }
-
-{ #category : #'testing - interest' }
-ReBlockFormattingRule class >> checksNode [
-
-	^ true
-]
 
 { #category : #helpers }
 ReBlockFormattingRule >> anchorFor: aNode [
