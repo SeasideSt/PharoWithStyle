@@ -4,6 +4,14 @@ Class {
 	#category : #PharoWithStyle
 }
 
+{ #category : #helpers }
+ReReturnFormattingRule >> anchorFor: aNode [
+
+	^ ReIntervalSourceAnchor
+			entity: aNode
+			interval: (Interval from: aNode start to: aNode stop)
+]
+
 { #category : #initialization }
 ReReturnFormattingRule >> basicCheck: aNode [
 
