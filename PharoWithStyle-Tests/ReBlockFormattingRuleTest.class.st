@@ -1,6 +1,6 @@
 Class {
 	#name : #ReBlockFormattingRuleTest,
-	#superclass : #ReAbstractRuleTestCase,
+	#superclass : #ReAbstractNodeCheckRuleTest,
 	#category : #'PharoWithStyle-Tests'
 }
 
@@ -37,17 +37,6 @@ ReBlockFormattingRuleTest >> multilineBlocksWithInconsistentSpaces2 [
 
 	#() do: [
 		1 foo ]
-]
-
-{ #category : #helpers }
-ReBlockFormattingRuleTest >> myCritiquesOnNodesInMethod: aMethod [
-
-	| critiques |
-	critiques := OrderedCollection new.
-	aMethod ast nodesDo: [ :node | 
-		self subjectUnderTest new
-			check: node forCritiquesDo:[ :critique | critiques add: critique ] ].
-	^ critiques
 ]
 
 { #category : #tests }
