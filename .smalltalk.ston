@@ -1,0 +1,16 @@
+SmalltalkCISpec {
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'PharoWithStyle',
+      #directory : '.',
+      #load : [ 'Tests' ],
+      #platforms : [ #pharo ]
+    }
+  ],
+  #testing : {
+      #coverage : {
+        #packages: [ 'PharoWithStyle' ],
+        #format: #lcov
+      }
+	}
+}
