@@ -1,1 +1,1 @@
-Package { #name : #BaselineOfPharoWithStyle }
+Package { #name : 'BaselineOfPharoWithStyle' }

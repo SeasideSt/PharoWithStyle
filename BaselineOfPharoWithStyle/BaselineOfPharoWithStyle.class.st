@@ -1,10 +1,11 @@
 Class {
-	#name : #BaselineOfPharoWithStyle,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfPharoWithStyle
+	#name : 'BaselineOfPharoWithStyle',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfPharoWithStyle',
+	#package : 'BaselineOfPharoWithStyle'
 }
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfPharoWithStyle >> baseline: spec [
 	<baseline>
 	
@@ -14,5 +15,5 @@ BaselineOfPharoWithStyle >> baseline: spec [
 		   package: 'PharoWithStyle-Tests' with: [ spec requires: 'PharoWithStyle' ].
 	   spec
 			group: 'default' with: #('PharoWithStyle');
-			group: 'tests' with: #('PharoWithStyle' 'PharoWithStyle-Tests') ]
+			group: 'All' with: #('PharoWithStyle' 'PharoWithStyle-Tests') ]
 ]
